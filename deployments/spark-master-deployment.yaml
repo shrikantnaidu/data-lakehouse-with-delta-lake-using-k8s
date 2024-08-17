@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-master
+  template:
+    metadata:
+      labels:
+        app: spark-master
+    spec:
+      containers:
+      - name: spark-master
+        image: sk97/spark-master-custom:latest
+        env:
+        - name: SPARK_MODE
+          value: "master"
+        - name: SPARK_MASTER_PORT
+          value: "7077"
+        - name: SPARK_MASTER_WEBUI_PORT
+          value: "8080"
+        ports:
+        - containerPort: 7077
+        - containerPort: 8080
+        volumeMounts:
+        - name: spark-config-volume
+          mountPath: /opt/spark/conf
+      volumes:
+      - name: spark-config-volume
+        configMap:
+          name: spark-config
