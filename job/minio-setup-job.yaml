@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: mc-init
+  name: minio-setup
 spec:
   template:
     spec:
@@ -25,5 +25,4 @@ spec:
           done
           /usr/bin/mc mb minio/warehouse
           /usr/bin/mc policy set public minio/warehouse
-          exit 0
       restartPolicy: OnFailure

@@ -1,3 +1,5 @@
+# last working spark-master-node from claude
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,9 +28,9 @@ spec:
         - containerPort: 7077
         - containerPort: 8080
         volumeMounts:
-        - name: spark-config-volume
+        - name: spark-defaults
           mountPath: /opt/spark/conf
       volumes:
-      - name: spark-config-volume
+      - name: spark-defaults
         configMap:
-          name: spark-config
+          name: spark-defaults-configmap
