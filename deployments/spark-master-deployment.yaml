@@ -33,4 +33,4 @@ spec:
       volumes:
       - name: spark-defaults
         configMap:
-          name: spark-defaults-configmap
+          name: spark-master-config

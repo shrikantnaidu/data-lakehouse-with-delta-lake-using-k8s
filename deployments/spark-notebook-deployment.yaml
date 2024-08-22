@@ -31,15 +31,12 @@ spec:
         - name: spark-defaults
           mountPath: /usr/local/spark/conf/spark-defaults.conf
           subPath: spark-defaults.conf
-        - name: conda-env
-          mountPath: /opt/conda/env
+        # - name: conda-env
+        #   mountPath: /opt/conda/env
       volumes:
       - name: notebooks
         persistentVolumeClaim:
           claimName: notebooks-pvc
       - name: spark-defaults
         configMap:
-          name: spark-defaults-configmap
-      - name: conda-env
-        persistentVolumeClaim:
-          claimName: conda-env-pvc
+          name: spark-notebook-config

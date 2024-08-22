@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: spark-defaults-configmap
-data:
-  spark-defaults.conf: |
-    spark.master spark://spark-master:7077
-    spark.eventLog.enabled true
-    spark.eventLog.dir file:/tmp/spark-events
