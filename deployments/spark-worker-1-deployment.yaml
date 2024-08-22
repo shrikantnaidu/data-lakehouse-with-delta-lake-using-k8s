@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-worker-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-worker-1
+  template:
+    metadata:
+      labels:
+        app: spark-worker-1
+    spec:
+      containers:
+      - name: spark-worker-1
+        image: bitnami/spark:3.4.0
+        env:
+        - name: SPARK_MODE
+          value: "worker"
+        - name: SPARK_MASTER_URL
+          value: "spark://spark-master:7077"
+        - name: SPARK_WORKER_MEMORY
+          value: "2G"
+        - name: SPARK_WORKER_CORES
+          value: "1"
+        - name: SPARK_RPC_AUTHENTICATION_ENABLED
+          value: "no"
+        - name: SPARK_RPC_ENCRYPTION_ENABLED
+          value: "no"
+        - name: SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED
+          value: "no"
+        - name: SPARK_SSL_ENABLED
+          value: "no"
+

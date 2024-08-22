@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-notebook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-notebook
+  template:
+    metadata:
+      labels:
+        app: spark-notebook
+    spec:
+      containers:
+      - name: spark-notebook
+        image: sk97/spark-notebook-custom:latest  
+        ports:
+        - containerPort: 8888
+        - containerPort: 4040
+        env:
+        - name: JUPYTER_ENABLE_LAB
+          value: "yes"
+        - name: GRANT_SUDO
+          value: "yes"
+        - name: JUPYTER_TOKEN
+          value: "123"
+        volumeMounts:
+        - name: notebooks
+          mountPath: /home/jovyan/work
+        - name: spark-defaults
+          mountPath: /usr/local/spark/conf/spark-defaults.conf
+          subPath: spark-defaults.conf
+        # - name: conda-env
+        #   mountPath: /opt/conda/env
+      volumes:
+      - name: notebooks
+        persistentVolumeClaim:
+          claimName: notebooks-pvc
+      - name: spark-defaults
+        configMap:
+          name: spark-notebook-config
